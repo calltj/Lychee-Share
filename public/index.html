@@ -51,15 +51,15 @@
     <!-- Center: Navigation Links -->
     <nav class="hidden md:flex items-center space-x-8 text-gray-700 font-semibold">
       
-      <a href="#" class="hover:text-blue-600 transition">Features</a>
-      <a href="#" class="hover:text-blue-600 transition">Pricing</a>
-      <a href="#" class="hover:text-blue-600 transition">Support</a>
+      <a href="/features" class="hover:text-blue-600 transition">Features</a>
+      <a href="/pricing" class="hover:text-blue-600 transition">Pricing</a>
+      <a href="/support" class="hover:text-blue-600 transition">Support</a>
     </nav>
 
     <!-- Right: Actions -->
     <div class="flex items-center space-x-4">
-      <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold">Login</a>
-      <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition font-semibold">Get Started</a>
+      <a href="/login" class="text-blue-600 hover:text-blue-700 font-semibold">Login</a>
+      <a href="/create" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition font-semibold">Get Started</a>
     </div>
   </div>
 </header>
@@ -385,6 +385,7 @@
       <!-- Smooth blue-green cursor trail using canvas -->
 <canvas id="cursor-trail-canvas" style="position:fixed;top:0;left:0;pointer-events:none;z-index:99999;"></canvas>
 <script>
+  
   const canvas = document.getElementById("cursor-trail-canvas");
   const ctx = canvas.getContext("2d");
   let trail = [];
@@ -430,6 +431,7 @@
     requestAnimationFrame(drawTrail);
   }
   drawTrail();
+  
 </script>
   </body>
 </html>
