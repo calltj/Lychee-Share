@@ -461,5 +461,54 @@
         lastScrollY = window.scrollY;
       });
     </script>
+      <!-- Smooth blue-green cursor trail using canvas -->
+<canvas id="cursor-trail-canvas" style="position:fixed;top:0;left:0;pointer-events:none;z-index:99999;"></canvas>
+<script>
+  const canvas = document.getElementById("cursor-trail-canvas");
+  const ctx = canvas.getContext("2d");
+  let trail = [];
+
+  function resizeTrailCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener("resize", resizeTrailCanvas);
+  resizeTrailCanvas();
+
+  document.addEventListener("mousemove", (e) => {
+    const pos = { x: e.clientX, y: e.clientY, time: Date.now() };
+    trail.push(pos);
+    // Limit trail length for performance
+    if (trail.length > 100) trail.shift();
+  });
+
+  function drawTrail() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const now = Date.now();
+    trail = trail.filter(p => now - p.time < 700);
+
+    for (let i = 1; i < trail.length; i++) {
+      const p1 = trail[i - 1];
+      const p2 = trail[i];
+      const age = (now - p2.time) / 700;
+      ctx.save();
+      ctx.globalAlpha = 1 - age;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = 18 * (1 - age) + 4;
+      const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+      grad.addColorStop(0, "#1e90ff");
+      grad.addColorStop(1, "#10b981");
+      ctx.strokeStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(p1.x, p1.y);
+      ctx.lineTo(p2.x, p2.y);
+      ctx.stroke();
+      ctx.restore();
+    }
+    requestAnimationFrame(drawTrail);
+  }
+  drawTrail();
+</script>
   </body>
 </html>

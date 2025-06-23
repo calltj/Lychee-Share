@@ -46,11 +46,13 @@
       </p>
       <div class="flex flex-col sm:flex-row gap-4 max-w-md w-full">
         <input
+          id="email-input"
           type="email"
           placeholder="Enter your e-mail address*"
           class="flex-1 px-4 py-3 rounded border border-gray-300 focus:outline-none"
         />
         <button
+          id="get-guide-btn"
           class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded"
         >
           Get the Guide
@@ -119,90 +121,180 @@
     </script>
 
     <script>
-      const platforms = [
-        {
-          id: "windows",
-          icon: "bi-windows",
-          name: "Windows",
-          version: "v9.5.6 (7.9 MB)",
-        },
-        {
-          id: "macos",
-          icon: "bi-apple",
-          name: "macOS",
-          version: "v9.0.2 (15.7 MB)",
-        },
-        {
-          id: "android",
-          icon: "bi-android2",
-          name: "Android",
-          version: "v8.0.2 (44.5 MB)",
-        },
-        {
-          id: "ios",
-          icon: "bi-phone",
-          name: "iOS",
-          version: "v7.1.2 (43.7 MB)",
-        },
-        {
-          id: "linux",
-          icon: "bi-terminal",
-          name: "Linux",
-          version: "v7.0.0 (14.3 MB)",
-        },
-        {
-          id: "chromeos",
-          icon: "bi-google",
-          name: "Chrome OS",
-          version: "v7.2.0 (25.5 MB)",
-        },
-      ];
+      document.addEventListener("DOMContentLoaded", () => {
+        // Platform cards
+        const platforms = [
+          {
+            id: "windows",
+            icon: "bi-windows",
+            name: "Windows",
+            version: "v9.5.6 (7.9 MB)",
+          },
+          {
+            id: "macos",
+            icon: "bi-apple",
+            name: "macOS",
+            version: "v9.0.2 (15.7 MB)",
+          },
+          {
+            id: "android",
+            icon: "bi-android2",
+            name: "Android",
+            version: "v8.0.2 (44.5 MB)",
+          },
+          {
+            id: "ios",
+            icon: "bi-phone",
+            name: "iOS",
+            version: "v7.1.2 (43.7 MB)",
+          },
+          {
+            id: "linux",
+            icon: "bi-terminal",
+            name: "Linux",
+            version: "v7.0.0 (14.3 MB)",
+          },
+          {
+            id: "chromeos",
+            icon: "bi-google",
+            name: "Chrome OS",
+            version: "v7.2.0 (25.5 MB)",
+          },
+        ];
 
-      const grid = document.getElementById("platform-grid");
+        const grid = document.getElementById("platform-grid");
 
-      platforms.forEach((p) => {
-        const card = document.createElement("div");
-        card.className =
-          "platform-card border-2 border-transparent rounded-lg p-4 transition duration-200 hover:border-green-600 text-center cursor-pointer";
-        card.setAttribute("data-id", p.id);
-        card.innerHTML = `
-          <i class="bi ${p.icon} text-4xl text-gray-500"></i>
-          <h3 class="font-bold mt-2">${p.name}</h3>
-          <p class="text-sm text-gray-500">${p.version}</p>
-          <button class="hidden mt-4 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Download</button>
-        `;
-        grid.appendChild(card);
-      });
-
-      const cards = document.querySelectorAll(".platform-card");
-      cards.forEach((card) => {
-        card.addEventListener("click", () => {
-          cards.forEach((c) => {
-            c.classList.remove("border-blue-600");
-            c.querySelector("button").classList.add("hidden");
-            c.querySelector("i").classList.replace(
-              "text-blue-600",
-              "text-gray-500"
-            );
-          });
-          card.classList.add("border-blue-600");
-          card.querySelector("button").classList.remove("hidden");
-          card
-            .querySelector("i")
-            .classList.replace("text-gray-500", "text-blue-600");
+        platforms.forEach((p) => {
+          const card = document.createElement("div");
+          card.className =
+            "platform-card border-2 border-transparent rounded-lg p-4 transition duration-200 hover:border-green-600 text-center cursor-pointer";
+          card.setAttribute("data-id", p.id);
+          card.innerHTML = `
+        <i class="bi ${p.icon} text-4xl text-gray-500"></i>
+        <h3 class="font-bold mt-2">${p.name}</h3>
+        <p class="text-sm text-gray-500">${p.version}</p>
+        <button class="hidden mt-4 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Download</button>
+      `;
+          grid.appendChild(card);
         });
-      });
-      document
-        .getElementById("get-guide-btn")
-        .addEventListener("click", async function () {
-          const email = document.getElementById("email-input").value;
-          if (!email) return alert("Please enter your email address.");
-          const res = await fetch("/api/send-guide", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email }),
+
+        const cards = document.querySelectorAll(".platform-card");
+        cards.forEach((card) => {
+          card.addEventListener("click", () => {
+            cards.forEach((c) => {
+              c.classList.remove("border-blue-600");
+              c.querySelector("button").classList.add("hidden");
+              c.querySelector("i").classList.replace(
+                "text-blue-600",
+                "text-gray-500"
+              );
+            });
+            card.classList.add("border-blue-600");
+            card.querySelector("button").classList.remove("hidden");
+            card
+              .querySelector("i")
+              .classList.replace("text-gray-500", "text-blue-600");
           });
         });
+
+        // Get the Guide button
+        const guideBtn = document.getElementById("get-guide-btn");
+        if (guideBtn) {
+          guideBtn.addEventListener("click", async function () {
+            const email = document.getElementById("email-input").value;
+            if (!email) return alert("Please enter your email address.");
+            const res = await fetch("/api/send-guide", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email }),
+            });
+            if (res.ok) {
+              alert("Guide sent! Check your email.");
+            } else {
+              alert("Failed to send guide.");
+            }
+          });
+        }
+
+        // Cursor trail
+        // <!-- const trailColors = ["#1e90ff", "#10b981"]; // Blue and Green
+        // let index = 0;
+        // <!-- document.addEventListener("mousemove", (e) => {
+        //   const dot = document.createElement("div");
+        //   dot.className = "cursor-dot";
+        //   dot.style.left = e.pageX + "px";
+        //   dot.style.top = e.pageY + "px";
+        //   dot.style.background = trailColors[index % trailColors.length];
+        //    index++;
+        //   document.body.appendChild(dot);
+        //
+        //    setTimeout(() => {
+        //      dot.remove();
+        //   }, 500); // trail duration
+        // }); -->
+      });
+    </script>
+    <!-- Smooth blue-green cursor trail using canvas -->
+    <canvas
+      id="cursor-trail-canvas"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+      "
+    ></canvas>
+    <script>
+      // Resize canvas to always fill the window
+      function resizeTrailCanvas() {
+        const canvas = document.getElementById("cursor-trail-canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener("resize", resizeTrailCanvas);
+      resizeTrailCanvas();
+
+      const canvas = document.getElementById("cursor-trail-canvas");
+      const ctx = canvas.getContext("2d");
+      let trail = [];
+
+      document.addEventListener("mousemove", (e) => {
+        const pos = { x: e.clientX, y: e.clientY, time: Date.now() };
+        trail.push(pos);
+      });
+
+      function drawTrail() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Only keep recent points for a fading effect
+        const now = Date.now();
+        trail = trail.filter((p) => now - p.time < 700);
+
+        for (let i = 1; i < trail.length; i++) {
+          const p1 = trail[i - 1];
+          const p2 = trail[i];
+          const age = (now - p2.time) / 700; // 0 (new) to 1 (old)
+          ctx.save();
+          ctx.globalAlpha = 1 - age;
+          ctx.lineCap = "round";
+          ctx.lineJoin = "round";
+          ctx.lineWidth = 18 * (1 - age) + 4;
+          // Gradient from blue to green
+          const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+          grad.addColorStop(0, "#1e90ff"); // blue
+          grad.addColorStop(1, "#10b981"); // green
+          ctx.strokeStyle = grad;
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+          ctx.restore();
+        }
+
+        requestAnimationFrame(drawTrail);
+      }
+      drawTrail();
     </script>
   </body>
 </html>
