@@ -20,13 +20,13 @@ router.get("/pricing", function (req, res, next) {
 router.get("/support", function (req, res, next) {
   res.sendFile(require("path").join(__dirname, "../public/support.html"));
 });
-router.get("/login", function (req, res, next) {
+router.get("/login.html", function (req, res, next) {
   res.sendFile(require("path").join(__dirname, "../public/login_page.html"));
 });
-router.get("/create", function (req, res, next) {
+router.get("/create.html", function (req, res, next) {
   res.sendFile(require("path").join(__dirname, "../public/create.html"));
 });
-router.get("/reset", function (req, res, next) {
+router.get("/reset.html", function (req, res, next) {
   res.sendFile(require("path").join(__dirname, "../public/reset.html"));
 });
 
