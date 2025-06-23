@@ -6,10 +6,10 @@ router.get('/', function(req, res, next) {
   res.sendFile(require('path').join(__dirname, '../public/index.html'));
 });
 router.get('/download', function(req, res, next) {
-  res.sendFile(require('path').join(__dirname, '../views/download.html'));
+  res.sendFile(require('path').join(__dirname, '../public/download.html'));
 });
 router.get('/business-plan', function(req, res, next) {
-  res.sendFile(require('path').join(__dirname, '../views/business-plan.html'));
+  res.sendFile(require('path').join(__dirname, '../public/business-plan.html'));
 });
 
 module.exports = router;
