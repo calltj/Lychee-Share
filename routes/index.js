@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.sendFile(require('path').join(__dirname, '../views/website.html'));
+  res.sendFile(require('path').join(__dirname, '../public/index.html'));
 });
 router.get('/download', function(req, res, next) {
   res.sendFile(require('path').join(__dirname, '../views/download.html'));
