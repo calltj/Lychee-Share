@@ -37,112 +37,33 @@
   </head>
   <body>
     <!-- Header -->
-    <header id="main-navbar" class="fixed top-0 left-0 w-full z-50 bg-white shadow transition-transform duration-300">
-  <div class="container mx-auto px-6 py-3 flex items-center justify-between">
-    <!-- Left: Call Sales & Portal -->
-    <div class="flex items-center space-x-8">
-      <span class="flex items-center text-blue-600 font-semibold text-base">
-        <i class="bi bi-telephone-outbound mr-2"></i>
-        Call Sales: <span class="font-bold ml-1">+1 562 784 4966</span>
-      </span>
-      <a href="#" class="text-blue-600 font-semibold hover:underline">Customer Portal</a>
-    </div>
-    <!-- Center: Nav Links -->
-    <nav class="flex items-center space-x-8">
-  <!-- Why Lychee Share Dropdown -->
-  <div class="relative group">
-    <button class="text-gray-800 font-semibold flex items-center focus:outline-none group-hover:text-blue-600 transition">
-      Why Lychee Share
-      <i class="bi bi-chevron-down ml-1"></i>
-    </button>
-    <!-- Dropdown menu -->
-    <div class="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 z-50">
-      <!-- Place dropdown items here -->
-    </div>
-    <span class="block h-1 bg-blue-600 mt-1 rounded scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
-  </div>
-  <!-- Partners Dropdown -->
-  <div class="relative group">
-    <button class="text-gray-800 font-semibold flex items-center focus:outline-none group-hover:text-blue-600 transition"
-    onclick="toggleDropdown(event, 'partners-dropdown')"
-    id="partners-btn"
-    type="button">
-      Partners
-      <i class="bi bi-chevron-down ml-1"></i>
-    </button>
-    <div class="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 z-50">
-      <div class="relative dropdown">
-  
-  <!-- Modal-style Dropdown -->
-  <div
-    id="partners-dropdown"
-    class="hidden absolute left-1/2 -translate-x-1/2 mt-4 w-80 bg-white text-gray-900 rounded-xl shadow-2xl border border-gray-200 z-50"
-    style="min-width: 18rem;"
-  >
-    <div class="p-6">
-      <div class="text-blue-600 text-lg font-semibold mb-2">Partners</div>
-      <hr class="border-gray-200 mb-4" />
-      <a href="#" class="block py-2 px-2 rounded hover:bg-blue-50 transition">Partner Community</a>
-      <a href="#" class="block py-2 px-2 rounded hover:bg-blue-50 transition">Become a Partner</a>
-      <a href="#" class="block py-2 px-2 rounded hover:bg-blue-50 transition">Partner Locator</a>
-      <a href="#" class="block py-2 px-2 rounded hover:bg-blue-50 transition">Integration Partners</a>
-    </div>
-    </div>
-  
-</div>
-<script>
-  // Toggle dropdown on click, close on outside click
-  function toggleDropdown(event, id) {
-    event.stopPropagation();
-    const dropdown = document.getElementById(id);
-    const allDropdowns = document.querySelectorAll('.dropdown > div[id$="-dropdown"]');
-    allDropdowns.forEach(d => { if (d !== dropdown) d.classList.add('hidden'); });
-    dropdown.classList.toggle('hidden');
-  }
-  // Close dropdowns when clicking outside
-  document.addEventListener('click', function () {
-    document.querySelectorAll('.dropdown > div[id$="-dropdown"]').forEach(d => d.classList.add('hidden'));
-  });
-  // Prevent closing when clicking inside dropdown
-  document.querySelectorAll('.dropdown > div[id$="-dropdown"]').forEach(d => {
-    d.addEventListener('click', function (e) { e.stopPropagation(); });
-  });
-</script>
-    </div>
-    <span class="block h-1 bg-blue-600 mt-1 rounded scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
-  </div>
-  <!-- Company Dropdown -->
-  <div class="relative group">
-    <button class="text-gray-800 font-semibold flex items-center focus:outline-none group-hover:text-blue-600 transition">
-      Company
-      <i class="bi bi-chevron-down ml-1"></i>
-    </button>
-    <div class="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 z-50">
-      <!-- Place dropdown items here -->
-    </div>
-    <span class="block h-1 bg-blue-600 mt-1 rounded scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
-  </div>
-  <!-- Support Dropdown -->
-  <div class="relative group">
-    <button class="text-gray-800 font-semibold flex items-center focus:outline-none group-hover:text-blue-600 transition">
-      Support
-      <i class="bi bi-chevron-down ml-1"></i>
-    </button>
-    <div class="absolute left-0 mt-2 w-56 bg-white border border-gray-200 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity duration-200 z-50">
-      <!-- Place dropdown items here -->
-    </div>
-    <span class="block h-1 bg-blue-600 mt-1 rounded scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left"></span>
-  </div>
-  <a href="#" class="text-gray-800 font-semibold hover:text-blue-600 transition">Buy Now</a>
-</nav>
-    <!-- Right: Language, Contact, Downloads -->
+    <!-- Navbar -->
+<header id="main-navbar" class="bg-white shadow sticky top-0 z-50 transition-transform duration-300">
+
+  <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Left: Logo (Image Link) -->
+    <a href="/" class="flex items-center space-x-2">
+      <img src="/download.png" alt="Lychee Logo" class="h-10 w-auto" />
+      <!-- Optional text beside image -->
+      <!-- <span class="text-xl font-bold text-blue-600">Lychee Share</span> -->
+    </a>
+
+    <!-- Center: Navigation Links -->
+    <nav class="hidden md:flex items-center space-x-8 text-gray-700 font-semibold">
+      <a href="#" class="hover:text-blue-600 transition">Home</a>
+      <a href="#" class="hover:text-blue-600 transition">Features</a>
+      <a href="#" class="hover:text-blue-600 transition">Pricing</a>
+      <a href="#" class="hover:text-blue-600 transition">Support</a>
+    </nav>
+
+    <!-- Right: Actions -->
     <div class="flex items-center space-x-4">
-      
-      <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition ml-2">Contact Us</a>
-      <a href="#" class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold px-6 py-2 rounded transition ml-2">Downloads</a>
+      <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold">Login</a>
+      <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition font-semibold">Get Started</a>
     </div>
   </div>
 </header>
+
 
 
     <!-- Hero Section -->
